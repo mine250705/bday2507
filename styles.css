@@ -1,0 +1,915 @@
+/* ==========================================
+   CSS Design System & Styles for Janapriya
+   ========================================== */
+
+/* Design System Variables */
+:root {
+    --color-bg-dark: #070913;
+    --color-bg-panel: rgba(20, 24, 46, 0.55);
+    --color-bg-glass: rgba(255, 255, 255, 0.04);
+    --color-border-glass: rgba(255, 255, 255, 0.08);
+    
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #C0C8E1;
+    --color-text-muted: #8E99B7;
+    
+    --color-accent-pink: #FF6584;
+    --color-accent-rose: #E3859A;
+    --color-accent-lavender: #B590E8;
+    --color-accent-gold: #F2C94C;
+    --color-accent-teal: #4DEEEA;
+    
+    --shadow-premium: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(181, 144, 232, 0.1);
+    --shadow-glow: 0 0 15px rgba(255, 101, 132, 0.4);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-handwritten: 'Sacramento', cursive;
+    --font-serif: 'Playfair Display', serif;
+}
+
+/* Global Reset & Base styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Canvas Background styling */
+#lanterns-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, #151630 0%, var(--color-bg-dark) 100%);
+}
+
+/* App Container */
+#app-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 24px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Glassmorphism Panel styles */
+.glass-panel {
+    background: var(--color-bg-panel);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid var(--color-border-glass);
+    border-radius: 24px;
+    box-shadow: var(--shadow-premium);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 101, 132, 0.15);
+}
+
+/* Interactive Navigation / Section Swapping */
+section {
+    width: 100%;
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+section.active-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* SECTION 1: Countdown Lock Screen */
+.lock-wrapper {
+    width: 100%;
+    max-width: 550px;
+    padding: 48px 36px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heart-lock-icon {
+    font-size: 4.5rem;
+    color: var(--color-accent-pink);
+    margin-bottom: 24px;
+    filter: drop-shadow(0 0 10px rgba(255, 101, 132, 0.6));
+    animation: heartbeat 1.8s infinite ease-in-out;
+}
+
+.main-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-text-primary) 30%, var(--color-accent-rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.5;
+}
+
+/* Countdown Grid layout */
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 36px;
+}
+
+.time-block {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.02);
+}
+
+.time-num {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--color-accent-lavender);
+    text-shadow: 0 0 12px rgba(181, 144, 232, 0.4);
+    line-height: 1.1;
+}
+
+.time-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+/* Buttons styling */
+.primary-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, var(--color-accent-pink) 0%, var(--color-accent-lavender) 100%);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: var(--shadow-glow);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.primary-btn:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 101, 132, 0.7);
+    filter: brightness(1.05);
+}
+
+.primary-btn:active:not(.disabled) {
+    transform: translateY(1px);
+}
+
+.primary-btn.disabled {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-muted);
+    box-shadow: none;
+    cursor: not-allowed;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Passcode Bypass styles */
+.bypass-container {
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text-link-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: underline;
+}
+
+.text-link-btn:hover {
+    color: var(--color-accent-pink);
+}
+
+.bypass-form {
+    margin-top: 14px;
+    display: flex;
+    width: 100%;
+    max-width: 320px;
+    gap: 8px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.bypass-form.hidden {
+    display: none;
+}
+
+.bypass-form input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-border-glass);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.bypass-form input:focus {
+    border-color: var(--color-accent-pink);
+}
+
+.bypass-form input.shake-effect {
+    animation: shake 0.4s ease;
+    border-color: var(--color-accent-pink);
+}
+
+.icon-btn {
+    background: linear-gradient(135deg, var(--color-accent-pink) 0%, var(--color-accent-rose) 100%);
+    border: none;
+    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.error-text {
+    color: var(--color-accent-pink);
+    font-size: 0.8rem;
+    margin-top: 10px;
+    animation: shake 0.4s ease;
+}
+
+.error-text.hidden {
+    display: none;
+}
+
+.footer-note {
+    margin-top: 36px;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.5px;
+}
+
+/* SECTION 2: Envelope Reveal Screen */
+.envelope-wrapper {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* 3D Envelope Container */
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    background: #e95973;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-in-out;
+}
+
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e95973;
+    border-radius: 0 0 10px 10px;
+    z-index: 1;
+}
+
+/* Flaps around the envelope */
+.envelope-front {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: 160px solid #f06c88;
+    border-bottom: 110px solid #f06c88;
+    border-left: 160px solid #eb5e7a;
+    border-top: 110px solid transparent;
+    border-radius: 0 0 10px 10px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.envelope-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 115px solid #d44962;
+    transform-origin: top;
+    transition: transform 0.5s ease-in-out 0.4s;
+    z-index: 4;
+}
+
+/* Envelope Paper Card inside */
+.envelope-paper {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    width: 290px;
+    height: 200px;
+    background: rgba(18, 22, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    z-index: 2;
+    transition: transform 0.5s ease-in-out;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.paper-content {
+    text-align: center;
+    width: 100%;
+}
+
+.handwritten-title {
+    font-family: var(--font-handwritten);
+    font-size: 2.2rem;
+    color: var(--color-accent-pink);
+    margin-bottom: 8px;
+}
+
+.paper-preview-text {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.accent-btn {
+    padding: 8px 18px;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, var(--color-accent-pink) 0%, var(--color-accent-rose) 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 101, 132, 0.3);
+    transition: all 0.2s ease;
+}
+
+.accent-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(255, 101, 132, 0.5);
+}
+
+/* Wax Seal */
+.envelope-seal {
+    position: absolute;
+    top: 110px;
+    left: calc(50% - 30px);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #f2c94c 0%, #d4af37 100%);
+    border-radius: 50%;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.envelope-seal:hover {
+    transform: scale(1.1);
+}
+
+.seal-heart {
+    font-size: 1.2rem;
+    color: #ae0f2b;
+    animation: beat 1.5s infinite ease-in-out;
+}
+
+.seal-prompt {
+    font-size: 0.5rem;
+    color: #ae0f2b;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.envelope-hint {
+    margin-top: 36px;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    animation: bounce 2s infinite ease;
+}
+
+/* Opened Envelope State */
+.envelope.open .envelope-top {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .envelope-paper {
+    transform: translateY(-120px);
+    z-index: 3;
+}
+
+.envelope.open .envelope-seal {
+    display: none;
+}
+
+/* SECTION 3: Main Celebration Page */
+#celebration-section {
+    max-width: 1000px;
+}
+
+.celebration-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.celebration-title {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FFFFFF 10%, var(--color-accent-pink) 50%, var(--color-accent-lavender) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.celebration-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+}
+
+.celebration-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+/* Left Panel: Letter */
+.letter-panel {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+}
+
+.letter-header, .gallery-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-accent-lavender);
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--color-border-glass);
+    padding-bottom: 12px;
+}
+
+.letter-body {
+    flex: 1;
+    overflow-y: auto;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    padding-right: 8px;
+    font-family: var(--font-serif);
+}
+
+.letter-body p {
+    margin-bottom: 20px;
+}
+
+.typewriter-container {
+    min-height: 200px;
+    position: relative;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background-color: var(--color-accent-pink);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 0.8s infinite;
+}
+
+.letter-footer {
+    margin-top: 24px;
+    border-top: 1px solid var(--color-border-glass);
+    padding-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon-btn-text {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+}
+
+.icon-btn-text:hover {
+    color: var(--color-accent-pink);
+}
+
+/* Right Panel: Polaroid Carousel */
+.gallery-panel {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.polaroid-carousel {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 380px;
+}
+
+.polaroid-wrapper {
+    position: relative;
+    width: 260px;
+    height: 310px;
+}
+
+.polaroid-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 4px;
+    padding: 12px 12px 24px 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transform: rotate(var(--rot-deg, 0deg));
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease, z-index 0s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.polaroid-card.active-polaroid {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+    transform: rotate(-1deg) scale(1.05);
+}
+
+.polaroid-card:nth-child(even) {
+    --rot-deg: 3deg;
+}
+
+.polaroid-card:nth-child(odd) {
+    --rot-deg: -3deg;
+}
+
+.polaroid-img-container {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #EAEAEA;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.polaroid-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.polaroid-caption {
+    font-family: var(--font-handwritten);
+    font-size: 1.5rem;
+    color: #2D3748;
+    text-align: center;
+    margin-top: 14px;
+    font-weight: bold;
+}
+
+.carousel-controls {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.carousel-control-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border-glass);
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.carousel-control-btn:hover {
+    background: var(--color-accent-pink);
+    border-color: var(--color-accent-pink);
+    transform: scale(1.1);
+}
+
+#carousel-indicator {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+/* Interactive wishes bottom bar */
+.interactive-wishes-bar {
+    width: 100%;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.interactive-instruction {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.wish-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.wish-bubble-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border-glass);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.wish-bubble-btn:hover {
+    background: rgba(255, 101, 132, 0.15);
+    border-color: var(--color-accent-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 101, 132, 0.2);
+}
+
+/* Floating Music Player Widget */
+.music-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    background: rgba(15, 18, 38, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--color-border-glass);
+    border-radius: 40px;
+    padding: 6px 18px 6px 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-premium);
+    animation: slideInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.music-widget.hidden {
+    display: none;
+}
+
+.music-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--color-accent-pink) 0%, var(--color-accent-lavender) 100%);
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(255, 101, 132, 0.3);
+}
+
+.music-btn.spinning {
+    animation: spin 3s infinite linear;
+}
+
+.music-btn:not(.spinning) {
+    background: #4A5568;
+    box-shadow: none;
+}
+
+.music-track-name {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ==========================================
+   Animations & Transitions Keyframes
+   ========================================== */
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    60% { transform: translateY(-4px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sparkle Floating element class generated by Javascript */
+.sparkle-floating {
+    position: absolute;
+    pointer-events: none;
+    z-index: 100;
+    font-size: 1.5rem;
+    animation: floatWish 2.5s ease-out forwards;
+}
+
+@keyframes floatWish {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.6) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.5) translateY(-120px) rotate(15deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #app-container {
+        padding: 16px;
+    }
+    
+    .lock-wrapper {
+        padding: 32px 20px;
+    }
+    
+    .countdown-grid {
+        gap: 8px;
+    }
+    
+    .time-num {
+        font-size: 1.8rem;
+    }
+    
+    .celebration-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .celebration-title {
+        font-size: 2.2rem;
+    }
+    
+    .letter-panel {
+        padding: 24px;
+        min-height: auto;
+    }
+    
+    .gallery-panel {
+        padding: 24px;
+    }
+}

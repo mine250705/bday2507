@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A beautiful, interactive birthday surprise website made with love for Janapriya.">
+    <title>Happy Birthday Janapriya!</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;400;600;800&family=Sacramento&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Canvas for floating sky lanterns / fireflies background -->
+    <canvas id="lanterns-canvas"></canvas>
+
+    <!-- Main Container -->
+    <main id="app-container">
+        
+        <!-- SECTION 1: Countdown Lock Screen -->
+        <section id="countdown-section" class="active-section">
+            <div class="lock-wrapper glass-panel">
+                <div class="heart-lock-icon">
+                    <i class="fa-solid fa-heart-pulse animate-pulse"></i>
+                </div>
+                <h1 class="main-title">A Special Countdown</h1>
+                <p class="subtitle">Counting down the seconds for someone incredibly special...</p>
+                
+                <!-- Countdown Timer Grid -->
+                <div id="countdown-timer" class="countdown-grid">
+                    <div class="time-block">
+                        <span id="days" class="time-num">00</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="hours" class="time-num">00</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="minutes" class="time-num">00</span>
+                        <span class="time-label">Mins</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="seconds" class="time-num">00</span>
+                        <span class="time-label">Secs</span>
+                    </div>
+                </div>
+
+                <!-- Unlock Button (Disabled until July 25) -->
+                <button id="unlock-btn" class="primary-btn disabled" disabled>
+                    <i class="fa-solid fa-lock"></i> Locked until July 25th
+                </button>
+
+                <!-- Passcode Bypass Accordion -->
+                <div class="bypass-container">
+                    <button id="bypass-toggle" class="text-link-btn">
+                        <i class="fa-solid fa-key"></i> Have a secret key?
+                    </button>
+                    <div id="bypass-form" class="bypass-form hidden">
+                        <input type="password" id="secret-key-input" placeholder="Enter key (Try: janapriya)" aria-label="Secret key input">
+                        <button id="submit-key-btn" class="icon-btn" aria-label="Submit secret key">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <p id="key-error-msg" class="error-text hidden">That's not the secret key, try again! 💖</p>
+                </div>
+            </div>
+            
+            <footer class="footer-note">
+                Made with <i class="fa-solid fa-heart" style="color: var(--color-accent-pink);"></i> for Janapriya
+            </footer>
+        </section>
+
+        <!-- SECTION 2: Envelope Reveal Screen -->
+        <section id="envelope-section" class="hidden-section">
+            <div class="envelope-wrapper">
+                <div class="envelope" id="main-envelope">
+                    <div class="envelope-back"></div>
+                    <div class="envelope-paper glass-panel">
+                        <div class="paper-content">
+                            <h2 class="handwritten-title">Dear Janapriya,</h2>
+                            <p class="paper-preview-text">On this very special day, I wanted to create something as beautiful and unique as you are...</p>
+                            <button id="read-letter-btn" class="accent-btn">Open Surprise <i class="fa-solid fa-envelope-open-text"></i></button>
+                        </div>
+                    </div>
+                    <div class="envelope-front"></div>
+                    <div class="envelope-top"></div>
+                    <div class="envelope-seal" id="envelope-seal">
+                        <span class="seal-heart"><i class="fa-solid fa-heart"></i></span>
+                        <span class="seal-prompt">Click to Open</span>
+                    </div>
+                </div>
+                <p class="envelope-hint">Click the heart seal to open your birthday letter</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Main Celebration Page -->
+        <section id="celebration-section" class="hidden-section">
+            <header class="celebration-header">
+                <h1 class="celebration-title animate-glow">Happy Birthday, Janapriya! 🌟</h1>
+                <p class="celebration-subtitle">Wishing you a year filled with magic, laughter, and endless love.</p>
+            </header>
+
+            <div class="celebration-grid">
+                <!-- Left: Love Letter Panel -->
+                <div class="letter-panel glass-panel">
+                    <div class="letter-header">
+                        <i class="fa-solid fa-feather-pointed"></i>
+                        <span>A Letter to My Favorite Person</span>
+                    </div>
+                    <div class="letter-body">
+                        <div id="typewriter-text" class="typewriter-container">
+                            <!-- Typing text goes here via Javascript -->
+                        </div>
+                        <div id="letter-full-text" class="hidden">
+                            <p>Janapriya,</p>
+                            <p>From the moment you entered my life, you've made every single day brighter, warmer, and infinitely more beautiful. Your smile has a way of chasing away the darkest clouds, and your laughter is my absolute favorite song.</p>
+                            <p>Today is all about celebrating you—the wonderful, kind, smart, and gorgeous person you are. I want you to know how incredibly loved and cherished you are, not just today, but every single moment of every day.</p>
+                            <p>May this birthday bring you as much happiness, joy, and peace as you bring to everyone around you. I hope all your dreams, no matter how big or small, find their way to coming true.</p>
+                            <p>Always and forever, with all my love. Happy Birthday! 💖</p>
+                        </div>
+                    </div>
+                    <div class="letter-footer">
+                        <button id="replay-letter-btn" class="icon-btn-text" aria-label="Replay letter animation">
+                            <i class="fa-solid fa-rotate-left"></i> Replay Letter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Memory Lane Polaroid Gallery -->
+                <div class="gallery-panel glass-panel">
+                    <div class="gallery-header">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Moments We Cherish</span>
+                    </div>
+                    <div class="polaroid-carousel">
+                        <div class="polaroid-wrapper">
+                            <!-- Polaroid 1 -->
+                            <div class="polaroid-card active-polaroid" data-index="0">
+                                <div class="polaroid-img-container">
+                                    <img src="assets/memory1.jpg" alt="Dreamy silhouette memory">
+                                </div>
+                                <div class="polaroid-caption">Under the canopy of stars ✨</div>
+                            </div>
+                            <!-- Polaroid 2 -->
+                            <div class="polaroid-card" data-index="1">
+                                <div class="polaroid-img-container">
+                                    <img src="assets/memory2.jpg" alt="Stars in jar memory">
+                                </div>
+                                <div class="polaroid-caption">Captured dreams & fireflies 🍶</div>
+                            </div>
+                            <!-- Polaroid 3 -->
+                            <div class="polaroid-card" data-index="2">
+                                <div class="polaroid-img-container">
+                                    <img src="assets/memory3.jpg" alt="Cake candle memory">
+                                </div>
+                                <div class="polaroid-caption">Sweetest wishes for you 🎂</div>
+                            </div>
+                        </div>
+                        <div class="carousel-controls">
+                            <button id="prev-polaroid-btn" class="carousel-control-btn" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+                            <span id="carousel-indicator">1 / 3</span>
+                            <button id="next-polaroid-btn" class="carousel-control-btn" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Sparkle Canvas / Wish Drawer -->
+            <div class="interactive-wishes-bar glass-panel">
+                <p class="interactive-instruction"><i class="fa-solid fa-circle-info"></i> Tap anywhere on the background to launch fireworks! Try clicking to send her sweet birthday wishes.</p>
+                <div class="wish-buttons">
+                    <button class="wish-bubble-btn" data-emoji="💖" data-text="Love You Janapriya!">💖 Love</button>
+                    <button class="wish-bubble-btn" data-emoji="✨" data-text="Make a Wish, Janapriya!">✨ Magic</button>
+                    <button class="wish-bubble-btn" data-emoji="🎂" data-text="Happy Birthday!">🎂 Cake</button>
+                    <button class="wish-bubble-btn" data-emoji="🎈" data-text="Have a Blast!">🎈 Balloon</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Music Player Widget -->
+    <div id="music-player-widget" class="music-widget hidden">
+        <audio id="bg-audio" loop>
+            <!-- We will link to a high quality copyright-free romantic acoustic piano/guitar MP3 path -->
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button id="music-toggle-btn" class="music-btn spinning" aria-label="Toggle background music">
+            <i class="fa-solid fa-compact-disc"></i>
+        </button>
+        <span class="music-track-name">Playing Birthday Melody...</span>
+    </div>
+
+    <!-- Script imports -->
+    <script src="script.js"></script>
+</body>
+</html>
