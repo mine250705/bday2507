@@ -330,8 +330,8 @@ section.active-section {
 /* 3D Envelope Container */
 .envelope {
     position: relative;
-    width: 320px;
-    height: 220px;
+    width: 420px;
+    height: 300px;
     background: #e95973;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -354,10 +354,10 @@ section.active-section {
     position: absolute;
     width: 0;
     height: 0;
-    border-right: 160px solid #f06c88;
-    border-bottom: 110px solid #f06c88;
-    border-left: 160px solid #eb5e7a;
-    border-top: 110px solid transparent;
+    border-right: 210px solid #f06c88;
+    border-bottom: 150px solid #f06c88;
+    border-left: 210px solid #eb5e7a;
+    border-top: 150px solid transparent;
     border-radius: 0 0 10px 10px;
     z-index: 3;
     pointer-events: none;
@@ -369,9 +369,9 @@ section.active-section {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 160px solid transparent;
-    border-right: 160px solid transparent;
-    border-top: 115px solid #d44962;
+    border-left: 210px solid transparent;
+    border-right: 210px solid transparent;
+    border-top: 155px solid #d44962;
     transform-origin: top;
     transition: transform 0.5s ease-in-out 0.4s;
     z-index: 4;
@@ -380,10 +380,10 @@ section.active-section {
 /* Envelope Paper Card inside */
 .envelope-paper {
     position: absolute;
-    left: 15px;
+    left: 20px;
     bottom: 10px;
-    width: 290px;
-    height: 200px;
+    width: 380px;
+    height: 260px;
     background: rgba(18, 22, 45, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
@@ -437,10 +437,10 @@ section.active-section {
 /* Wax Seal */
 .envelope-seal {
     position: absolute;
-    top: 110px;
-    left: calc(50% - 30px);
-    width: 60px;
-    height: 60px;
+    top: 150px;
+    left: calc(50% - 35px);
+    width: 70px;
+    height: 70px;
     background: radial-gradient(circle, #f2c94c 0%, #d4af37 100%);
     border-radius: 50%;
     z-index: 5;
@@ -485,7 +485,7 @@ section.active-section {
 }
 
 .envelope.open .envelope-paper {
-    transform: translateY(-120px);
+    transform: translateY(-170px);
     z-index: 3;
 }
 
@@ -617,13 +617,13 @@ section.active-section {
     justify-content: center;
     align-items: center;
     position: relative;
-    min-height: 380px;
+    min-height: 450px;
 }
 
 .polaroid-wrapper {
     position: relative;
-    width: 260px;
-    height: 310px;
+    width: 320px;
+    height: 380px;
 }
 
 .polaroid-card {
@@ -660,7 +660,7 @@ section.active-section {
 
 .polaroid-img-container {
     width: 100%;
-    height: 220px;
+    height: 280px;
     overflow: hidden;
     background: #EAEAEA;
     border: 1px solid rgba(0, 0, 0, 0.05);

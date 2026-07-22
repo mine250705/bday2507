@@ -178,36 +178,74 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     // 3. Audio / Music Control
     // ==========================================
+    const musicTrackName = document.querySelector(".music-track-name");
+
+    // Audio status listeners to update label dynamically
+    audio.addEventListener("loadstart", () => {
+        musicTrackName.textContent = "Loading Soch Na Sake... 💖";
+    });
+
+    audio.addEventListener("waiting", () => {
+        musicTrackName.textContent = "Buffering Music... 💖";
+    });
+
+    audio.addEventListener("playing", () => {
+        musicTrackName.textContent = "Playing Soch Na Sake... 🎵";
+        musicWidget.classList.remove("hidden");
+        musicToggle.classList.add("spinning");
+        musicToggle.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
+    });
+
+    audio.addEventListener("pause", () => {
+        musicTrackName.textContent = "Music Paused 🔇";
+        musicToggle.classList.remove("spinning");
+        musicToggle.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+    });
+
+    audio.addEventListener("error", (e) => {
+        console.error("Audio error details: ", e);
+        musicTrackName.textContent = "Audio Load Error ⚠️";
+    });
+
     function initAudio() {
         if (audioInitialized) return;
-        audio.volume = 0.4;
+        audio.volume = 0.45;
+        
+        // Show widget immediately so user sees loading state
+        musicWidget.classList.remove("hidden");
         
         // Play audio
         const playPromise = audio.play();
         if (playPromise !== undefined) {
             playPromise.then(() => {
                 audioInitialized = true;
-                musicWidget.classList.remove("hidden");
-                musicToggle.classList.add("spinning");
             }).catch(error => {
                 console.log("Audio autoplay failed, waiting for user click interaction: ", error);
-                // We'll show the widget paused and play on first click of the envelope
-                musicWidget.classList.remove("hidden");
+                // Autoplay blocked: show instruction
+                musicTrackName.textContent = "Click anywhere to play music 🎵";
                 musicToggle.classList.remove("spinning");
                 musicToggle.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
             });
         }
     }
 
-    musicToggle.addEventListener("click", () => {
+    musicToggle.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent global click trigger
         if (audio.paused) {
-            audio.play();
-            musicToggle.classList.add("spinning");
-            musicToggle.innerHTML = '<i class="fa-solid fa-compact-disc"></i>';
+            audio.play().catch(err => console.log("Failed to play on manual toggle click:", err));
         } else {
             audio.pause();
-            musicToggle.classList.remove("spinning");
-            musicToggle.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+        }
+    });
+
+    // Global document-level click fallback for browsers that block autoplay
+    document.addEventListener("click", () => {
+        if (isUnlocked && !audioInitialized) {
+            audio.play().then(() => {
+                audioInitialized = true;
+            }).catch(err => {
+                console.log("Global click audio play promise failed:", err);
+            });
         }
     });
 
