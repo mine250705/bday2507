@@ -601,119 +601,314 @@ section.active-section {
     color: var(--color-accent-pink);
 }
 
-/* Right Panel: Polaroid Carousel */
-.gallery-panel {
-    padding: 32px;
+/* ==========================================
+   Stickers Design (WhatsApp Style)
+   ========================================== */
+.sticker-element {
+    position: absolute;
+    z-index: 100;
+    pointer-events: auto;
+    transition: transform 0.3s ease;
+}
+
+.sticker-element img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sticker-element:hover img {
+    transform: scale(1.15);
+    animation: wiggle 0.6s ease-in-out infinite;
+}
+
+/* Wiggle keyframes for stickers */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) scale(1.15); }
+    25% { transform: rotate(-8deg) scale(1.15); }
+    75% { transform: rotate(8deg) scale(1.15); }
+}
+
+/* Specific Sticker Placements */
+.sticker-bear-top {
+    top: -45px;
+    right: -45px;
+    width: 120px;
+}
+
+.sticker-envelope-reveal {
+    bottom: -35px;
+    left: -45px;
+    width: 100px;
+    transform: rotate(-15deg);
+}
+
+.sticker-hearts-letter {
+    top: -30px;
+    right: 20px;
+    width: 90px;
+    transform: rotate(10deg);
+}
+
+.sticker-bear-album {
+    top: -55px;
+    right: 40px;
+    width: 110px;
+}
+
+.sticker-gallery-hearts {
+    top: 40px;
+    right: 5%;
+    width: 130px;
+    transform: rotate(15deg);
+    opacity: 0.8;
+}
+
+.sticker-gallery-envelope {
+    bottom: 80px;
+    left: 4%;
+    width: 110px;
+    transform: rotate(-20deg);
+    opacity: 0.85;
+}
+
+/* ==========================================
+   Album Cover Card Preview
+   ========================================== */
+.album-cover-panel {
+    padding: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 480px;
+}
+
+.album-card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    width: 100%;
 }
 
-.polaroid-carousel {
-    width: 100%;
-    flex: 1;
+.album-book-visual {
+    margin-bottom: 28px;
+    perspective: 1000px;
+}
+
+.book-cover {
+    position: relative;
+    width: 180px;
+    height: 240px;
+    background: linear-gradient(135deg, #7A283C 0%, #4E1220 100%);
+    border-radius: 4px 16px 16px 4px;
+    box-shadow: 10px 15px 35px rgba(0,0,0,0.5), inset 3px 0 6px rgba(255,255,255,0.1);
+    transform: rotateY(-15deg);
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    border-left: 5px solid #2B070F;
+}
+
+.album-book-visual:hover .book-cover {
+    transform: rotateY(-5deg) rotateX(5deg) scale(1.05);
+    box-shadow: 15px 25px 45px rgba(0,0,0,0.6);
+}
+
+.book-spine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 100%;
+    background: #2B070F;
+    border-radius: 4px 0 0 4px;
+    box-shadow: inset 1px 0 2px rgba(255,255,255,0.1);
+}
+
+.book-emboss {
+    padding: 24px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    min-height: 450px;
+    border: 2px solid rgba(242, 201, 76, 0.3);
+    margin: 10px;
+    border-radius: 8px;
+    height: calc(100% - 20px);
 }
 
-.polaroid-wrapper {
-    position: relative;
-    width: 320px;
-    height: 380px;
+.cover-icon {
+    font-size: 2.8rem;
+    color: var(--color-accent-gold);
+    text-shadow: 0 0 10px rgba(242,201,76,0.5);
+    margin-bottom: 16px;
 }
 
-.polaroid-card {
+.book-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.book-subtitle {
+    font-family: var(--font-handwritten);
+    font-size: 1.6rem;
+    color: var(--color-accent-rose);
+}
+
+.album-pitch-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+}
+
+.album-pitch-text {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    max-width: 280px;
+}
+
+/* ==========================================
+   Dedicated Photo Gallery Screen
+   ========================================== */
+#gallery-section {
+    max-width: 1100px;
+    display: none;
+}
+
+.gallery-page-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+    padding-top: 40px;
+}
+
+.back-navigation-btn {
     position: absolute;
     top: 0;
     left: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--color-accent-lavender);
+    border: 1px solid var(--color-border-glass);
+    background: var(--color-bg-glass);
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.back-navigation-btn:hover {
+    color: #FFFFFF;
+    background: var(--color-accent-pink);
+    border-color: var(--color-accent-pink);
+    transform: translateX(-4px);
+}
+
+.gallery-page-title {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FFFFFF 20%, var(--color-accent-lavender) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.gallery-page-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-secondary);
+}
+
+.gallery-scroll-container {
     width: 100%;
-    height: 100%;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-glass) transparent;
+}
+
+.gallery-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.gallery-scroll-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-glass);
+    border-radius: 3px;
+}
+
+.gallery-masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+    justify-items: center;
+    padding: 16px 8px 36px 8px;
+}
+
+/* Static Polaroid Grid Cards */
+.polaroid-grid-card {
     background: #FFFFFF;
-    border-radius: 4px;
-    padding: 12px 12px 24px 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    transform: rotate(var(--rot-deg, 0deg));
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease, z-index 0s;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.polaroid-card.active-polaroid {
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 10;
-    transform: rotate(-1deg) scale(1.05);
-}
-
-.polaroid-card:nth-child(even) {
-    --rot-deg: 3deg;
-}
-
-.polaroid-card:nth-child(odd) {
-    --rot-deg: -3deg;
-}
-
-.polaroid-img-container {
+    border-radius: 6px;
+    padding: 14px 14px 28px 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     width: 100%;
-    height: 280px;
+    max-width: 300px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.polaroid-grid-card:nth-child(3n+1) {
+    transform: rotate(-1.5deg);
+}
+
+.polaroid-grid-card:nth-child(3n+2) {
+    transform: rotate(2deg);
+}
+
+.polaroid-grid-card:nth-child(3n) {
+    transform: rotate(-2.5deg);
+}
+
+.polaroid-grid-card:hover {
+    transform: rotate(0deg) scale(1.04) translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.polaroid-grid-card .polaroid-img-container {
+    width: 100%;
+    height: 240px;
     overflow: hidden;
     background: #EAEAEA;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
-.polaroid-img-container img {
+.polaroid-grid-card .polaroid-img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.polaroid-caption {
+.polaroid-grid-card .polaroid-caption {
     font-family: var(--font-handwritten);
     font-size: 1.5rem;
     color: #2D3748;
     text-align: center;
     margin-top: 14px;
     font-weight: bold;
-}
-
-.carousel-controls {
-    margin-top: 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.carousel-control-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--color-border-glass);
-    color: #FFFFFF;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease;
-}
-
-.carousel-control-btn:hover {
-    background: var(--color-accent-pink);
-    border-color: var(--color-accent-pink);
-    transform: scale(1.1);
-}
-
-#carousel-indicator {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    font-family: var(--font-heading);
-    font-weight: 600;
 }
 
 /* Interactive wishes bottom bar */

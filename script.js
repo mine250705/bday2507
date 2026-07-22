@@ -47,12 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const replayLetterBtn = document.getElementById("replay-letter-btn");
     let typewriterInterval = null;
     
-    // Polaroid Gallery
-    const polaroids = document.querySelectorAll(".polaroid-card");
-    const prevBtn = document.getElementById("prev-polaroid-btn");
-    const nextBtn = document.getElementById("next-polaroid-btn");
-    const carouselIndicator = document.getElementById("carousel-indicator");
-    let currentPolaroidIndex = 0;
+    // Gallery Elements
+    const gallerySec = document.getElementById("gallery-section");
+    const openAlbumBtn = document.getElementById("open-album-btn");
+    const backToLetterBtn = document.getElementById("back-to-letter-btn");
     
     // Audio Elements
     const audio = document.getElementById("bg-audio");
@@ -351,27 +349,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 6. Polaroid Gallery Slider
+    // 6. Photo Gallery Transitions & Interactions
     // ==========================================
-    function updatePolaroids() {
-        polaroids.forEach((card, idx) => {
-            card.classList.remove("active-polaroid");
-            if (idx === currentPolaroidIndex) {
-                card.classList.add("active-polaroid");
-            }
-        });
+    
+    // Transition from Celebration letter page to dedicated Gallery page
+    openAlbumBtn.addEventListener("click", () => {
+        celebrationSec.style.opacity = "0";
+        celebrationSec.style.transform = "translateY(-20px)";
         
-        carouselIndicator.textContent = `${currentPolaroidIndex + 1} / ${polaroids.length}`;
-    }
-
-    nextBtn.addEventListener("click", () => {
-        currentPolaroidIndex = (currentPolaroidIndex + 1) % polaroids.length;
-        updatePolaroids();
+        setTimeout(() => {
+            celebrationSec.classList.remove("active-section");
+            celebrationSec.style.display = "none";
+            
+            gallerySec.style.display = "block";
+            gallerySec.offsetHeight; // trigger reflow
+            gallerySec.classList.add("active-section");
+            gallerySec.style.opacity = "1";
+            gallerySec.style.transform = "translateY(0)";
+        }, 600);
     });
 
-    prevBtn.addEventListener("click", () => {
-        currentPolaroidIndex = (currentPolaroidIndex - 1 + polaroids.length) % polaroids.length;
-        updatePolaroids();
+    // Transition back to Celebration letter page
+    backToLetterBtn.addEventListener("click", () => {
+        gallerySec.style.opacity = "0";
+        gallerySec.style.transform = "translateY(20px)";
+        
+        setTimeout(() => {
+            gallerySec.classList.remove("active-section");
+            gallerySec.style.display = "none";
+            
+            celebrationSec.style.display = "flex";
+            celebrationSec.offsetHeight;
+            celebrationSec.classList.add("active-section");
+            celebrationSec.style.opacity = "1";
+            celebrationSec.style.transform = "translateY(0)";
+        }, 600);
+    });
+
+    // Cute interactive feature: drop floating heart stickers when clicking on gallery background
+    const galleryScroll = document.querySelector(".gallery-scroll-container");
+    galleryScroll.addEventListener("click", (e) => {
+        // Exclude clicks on cards themselves
+        if (e.target.closest(".polaroid-grid-card")) return;
+        
+        // Spawn floating sticker at cursor
+        const clickX = e.clientX;
+        const clickY = e.clientY;
+        
+        const miniHeart = document.createElement("div");
+        miniHeart.className = "sparkle-floating";
+        miniHeart.style.left = `${clickX}px`;
+        miniHeart.style.top = `${clickY}px`;
+        miniHeart.innerHTML = '<span style="font-size: 2.2rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); display: inline-block; animation: beat 1s infinite">💖</span>';
+        
+        document.body.appendChild(miniHeart);
+        
+        setTimeout(() => {
+            miniHeart.remove();
+        }, 2500);
     });
 
     // ==========================================
